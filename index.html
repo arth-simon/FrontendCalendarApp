@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Calendar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css" />
+</head>
+
+<body class="light">
+    <div class="calendar">
+        <div class="calendar-header">
+            <span class="month-picker" id="month-picker">February</span>
+            <div class="year-picker">
+                <span class="year-change" id="prev-year">
+                    <i id="prev-year" class="fa-regular fa-circle-left"></i>
+                </span>
+                <span id="year">2023</span>
+                <span class="year-change" id="next-year">
+                    <i id="next-year" class="fa-regular fa-circle-right"></i>
+                </span>
+            </div>
+        </div>
+        <div class="calendar-left-bar">
+            <div class="left-hand-bar-icons">
+                <div class="addCalendar">
+                    <i id="addEventButton" class="fa-regular fa-calendar-plus"></i>
+                </div>
+
+                <div class="penEdit">
+                    <i id="updateEventButton" class="fa-regular fa-pen-to-square"></i>
+                </div>
+
+                <div class="image">
+                    <i id="imageButton" class="fa-regular fa-image"></i>
+                </div>
+
+                <div class="openFolder">
+                    <i id="EventCategoryButton" class="fa-regular fa-folder-open"></i>
+                </div>
+
+                <div class="deleteTrashCan">
+                    <i id="deleteEventButton" class="fa-regular fa-trash-can"></i>
+                </div>
+            </div>
+        </div>
+        <div class="calendar-body">
+            <div class="calendar-content">
+                <div class="calendar-week-day">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                </div>
+                <div class="calendar-days"></div>
+            </div>
+        </div>
+        <div class="calendar-right-bar">
+            <div id="right-hand-bar-icons" class="right-hand-bar-icons">
+
+                <div class="addFolder">
+                    <i id="createCategoryButton" class="fa-solid fa-folder-plus"></i>
+                </div>
+
+                <div>
+                    <i id="fetchCategoryButton" class="fa-solid fa-magnifying-glass"></i>
+                </div>
+
+                <div class="deleteIcon">
+                    <i id="deleteCategoryButton" class="fa-regular fa-trash-can"></i>
+                </div>
+
+            </div>
+            <div id="right-hand-bar" class="right-bar-content">
+            </div>
+            <div class="right-bar-toggle" onclick="toggleRightBar()">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+        <div class="calendar-footer">
+            <div class="toggle">
+                <span>Dark Mode</span>
+                <div class="dark-mode-switch">
+                    <div class="dark-mode-switch-ident"></div>
+                </div>
+            </div>
+        </div>
+        <div class="calendar-event-bar">
+            <div id="event-bar-icons" class="event-bar-icons">
+
+                <div class="search">
+                    <i id="fetchEventButton" class="fa-solid fa-magnifying-glass"></i>
+                </div>
+
+            </div>
+
+            <div id="event-bar-heading" class="event-bar-heading">
+                Eventslist
+            </div>
+
+            <div id="event-bar" class="event-bar-content">
+            </div>
+            <div class="event-bar-toggle" onclick="toggleEventBar()">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+        <div class="month-list"></div>
+    </div>
+    <div id="calendar-events-frame" class="calendar-events-frame">
+        <div id="calendar-events-frame-back" class="calendar-events-frame-back">
+
+            <div>
+                <i id="events-frame-back" class="fa-solid fa-arrow-right-to-bracket"></i>
+            </div>
+
+
+        </div>
+        <div id="calendar-events-frame-icons" class="calendar-events-frame-icons">
+
+            <i id="addEventFrameButton" class="fa-regular fa-calendar-plus"></i>
+
+            <i id="fetchEventFrameButton" class="fa-solid fa-magnifying-glass"></i>
+
+        </div>
+        <div id="calendar-events-frame-content" class="calendar-events-frame-content"></div>
+    </div>
+    <div id="eventFrame" class="Frame">
+        <div id="Frame-back" class="Frame-back">
+
+            <div>
+                <i id="back" class="fa-solid fa-arrow-right-to-bracket"></i>
+            </div>
+
+        </div>
+        <div id="Frame-icons" class="Frame-icons">
+
+            <div id="Frame-icons-event" class="Frame-icons-event">
+
+                <i id="updateEventFrameButton" class="fa-regular fa-pen-to-square"></i>
+
+
+                <i id="imageFrameButton" class="fa-regular fa-image"></i>
+
+
+                <i id="EventCategoryFrameButton" class="fa-regular fa-folder-open"></i>
+
+
+                <i id="deleteEventFrameButton" class="fa-regular fa-trash-can"></i>
+
+            </div>
+
+            <div id="Frame-icons-category" class="Frame-icons-category">
+
+                <i id="deleteCategoryFrameButton" class="fa-regular fa-trash-can"></i>
+
+            </div>
+
+        </div>
+        <div id="Frame-content" class="Frame-content">
+        </div>
+    </div>
+    <div id="map" style="width: 2300px; height: 400px; display: none;"></div>
+    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+    <script src="https://kit.fontawesome.com/7710fb5bbc.js" crossorigin="anonymous"></script>
+    <script src="calendar.js"></script>
+    <script type="module" src="main.js"></script>
+    <script type="module" src="displayModule.js"></script>
+    <script type="module" src="eventModule.js"></script>
+    <script type="module" src="fetchModule.js"></script>
+    <script type="module" src="validationModule.js"></script>
+</body>
+
+</html>

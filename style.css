@@ -1,0 +1,706 @@
+/* Define color variables */
+:root {
+    /* Dark theme colors */
+    --dark-body: #4d4c5a;
+    --dark-main: #141529;
+    --dark-second: #79788c;
+    --dark-hover: #323048;
+    --dark-hover-icons: #323048; /* Corrected extra semicolon */
+    --dark-text: #f8fbff;
+
+    /* Light theme colors */
+    --light-body: #f3f8fe;
+    --light-main: #fdfdfd;
+    --light-second: #c3c2c8;
+    --light-hover: #edf0f5;
+    --light-hover-icons: #79788c;
+    --light-text: #151426;
+
+    /* Other colors */
+    --blue: #0000ff;
+    --white: #fff;
+
+    --shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+    --font-family: cursive;
+}
+
+/* Dark theme styles */
+.dark {
+    --bg-body: var(--dark-body);
+    --bg-main: var(--dark-main);
+    --bg-second: var(--dark-second);
+    --color-hover: var(--dark-hover);
+    --color-hover-icons: var(--dark-hover-icons);
+    --color-txt: var(--dark-text);
+}
+
+/* Light theme styles */
+.light {
+    --bg-body: var(--light-body);
+    --bg-main: var(--light-main);
+    --bg-second: var(--light-second);
+    --color-hover: var(--light-hover);
+    --color-hover-icons: var(--light-hover-icons);
+    --color-txt: var(--light-text);
+}
+
+* {
+    margin: 0;
+}
+
+/* Global styling for HTML and body */
+html,
+body {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-family);
+    background-color: var(--bg-body);
+}
+
+/* Calendar container styles */
+.calendar {
+    height: max-content;
+    width: max-content;
+    background-color: var(--bg-main);
+    border-radius: 30px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: auto 1fr auto;
+}
+
+/* Shadow for light theme calendar */
+.light .calendar {
+    box-shadow: var(--shadow);
+}
+
+/* Header of the calendar */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 25px;
+    font-weight: 600;
+    color: var(--color-txt);
+    padding: 10px;
+    grid-column: 2 / span 2;
+}
+
+/* Left bar of the calendar */
+.calendar-left-bar {
+    padding: 10px;
+    background-color: var(--bg-second);
+    border-radius: 30px 0 0 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    grid-row: 2;
+}
+
+/* Icons in the left bar */
+.left-hand-bar-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 20px;
+}
+
+/* Styling for left bar icons */
+.left-hand-bar-icons i {
+    font-size: 22px;
+}
+
+/* Styling for left bar icons on hover */
+.left-hand-bar-icons i:hover {
+    cursor: pointer;
+    background-color: var(--color-hover-icons);
+    border-radius: 50%;
+}
+
+/* Calendar body */
+.calendar-body {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    padding: 10px;
+    grid-column: 2;
+    grid-row: 2;
+}
+
+/* Right bar of the calendar */
+.calendar-right-bar {
+    width: 0;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out;
+    position: relative;
+    padding: 20px;
+    background-color: var(--bg-second);
+    border-radius: 0 30px 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    grid-row: 2;
+    grid-column: 4;
+}
+
+/* Expanding right bar */
+.calendar-right-bar.expanded {
+    width: auto;
+}
+
+/* Toggle button for the right bar */
+.right-bar-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px; 
+    border-radius: 50%;
+    padding: 6px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Styling for the toggle button on hover */
+.right-bar-toggle:hover {
+    cursor: pointer;
+    background-color: var(--color-hover-icons);
+}
+
+/* Expanding content within the right bar */
+.calendar-right-bar.expanded .right-bar-content {
+    display: block;
+}
+
+/* Adjusting icons layout when right bar expands */
+.calendar-right-bar.expanded .right-hand-bar-icons {
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* Icons in the right bar */
+.right-hand-bar-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 20px;
+}
+
+/* Styling for right bar icons */
+.right-hand-bar-icons i {
+    font-size: 22px;
+}
+
+/* Styling for right bar icons on hover */
+.right-hand-bar-icons i:hover {
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: var(--color-hover-icons);
+}
+
+/* Content within the right bar */
+.right-bar-content {
+    display: none;
+    width: 100%;
+}
+
+/* Event bar within the calendar */
+.calendar-event-bar {
+    position: relative;
+    background-color: var(--bg-second);
+    border-radius: 30px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-row: 4;
+    grid-column: 1 / span 4;
+    align-items: center;
+}
+
+/* Expanding event bar */
+.calendar-event-bar.expanded {
+    width: auto;
+}
+
+/* Toggle button for the event bar */
+.event-bar-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 50%;
+    padding: 6px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Styling for the toggle button on hover */
+.event-bar-toggle:hover {
+    cursor: pointer;
+    background-color: var(--color-hover-icons);
+}
+
+/* Expanding content within the event bar */
+.calendar-event-bar.expanded .event-bar-content {
+    display: block;
+    width: calc(100% - 40px);
+}
+
+/* Icons in the event bar when expanded */
+.calendar-event-bar.expanded .event-bar-icons {
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* Icons in the event bar */
+.event-bar-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20px;
+}
+
+/* Styling for event bar icons */
+.event-bar-icons i {
+    font-size: 22px;
+}
+
+/* Styling for event bar icons on hover */
+.event-bar-icons i:hover {
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: var(--color-hover-icons);
+}
+
+/* Heading within the event bar */
+.event-bar-heading {
+    margin-left: 10px;
+}
+
+/* Content within the event bar */
+.event-bar-content {
+    display: none;
+    width: 100%;
+}
+
+/* Styling icons light mode */
+.fas.fa-bars,
+.fa-regular.fa-calendar-plus,
+.fa-regular.fa-trash-can,
+.fa-solid.fa-folder-plus,
+.fa-regular.fa-image,
+.fa-regular.fa-pen-to-square,
+.fa-regular.fa-folder-open,
+.fa-solid.fa-magnifying-glass,
+.fa-solid.fa-arrow-right-to-bracket {
+    /* Text color based on color variable */
+    color: var(--color-txt);
+}
+
+/* Styling icons dark mode */
+.dark .fas.fa-bars,
+.dark .fa-regular.fa-calendar-plus,
+.dark .fa-regular.fa-trash-can,
+.dark .fa-solid.fa-folder-plus,
+.dark .fa-regular.fa-image,
+.dark .fa-regular.fa-pen-to-square,
+.dark .fa-regular.fa-folder-open,
+.dark .fa-solid.fa-magnifying-glass,
+.dark .fa-solid.fa-arrow-right-to-bracket {
+    /* White color for icons in dark mode */
+    color: var(--white);
+}
+
+/* Styling for the days of the week section */
+.calendar-week-day {
+    height: 50px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    font-weight: 600;
+}
+
+/* Styling for individual day divs in the days section */
+.calendar-week-day div {
+    display: grid;
+    place-items: center;
+    color: var(--bg-second);
+}
+
+/* Styling for the main days section */
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    color: var(--color-txt);
+}
+
+/* Styling for individual day divs in the days section */
+.calendar-days div {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    position: relative;
+    cursor: pointer;
+    animation: to-top 1s forwards;
+}
+
+/* Styling for spans that create diagonal lines on calendar day hover */
+.calendar-days div span {
+    position: absolute;
+}
+
+/* Animation for diagonal lines on calendar day hover */
+.calendar-days div:hover span {
+    transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+}
+
+/* Diagonal lines on calendar day hover (vertical) */
+.calendar-days div span:nth-child(1),
+.calendar-days div span:nth-child(3) {
+    width: 2px;
+    height: 0;
+    background-color: var(--color-txt);
+}
+
+/* Diagonal lines on calendar day hover (vertical) on hover */
+.calendar-days div:hover span:nth-child(1),
+.calendar-days div:hover span:nth-child(3) {
+    height: 100%;
+}
+
+/* Diagonal lines on calendar day hover (vertical) positions */
+.calendar-days div span:nth-child(1) {
+    bottom: 0;
+    left: 0;
+}
+
+.calendar-days div span:nth-child(3) {
+    top: 0;
+    right: 0;
+}
+
+/* Diagonal lines on calendar day hover (horizontal) */
+.calendar-days div span:nth-child(2),
+.calendar-days div span:nth-child(4) {
+    width: 0;
+    height: 2px;
+    background-color: var(--color-txt);
+}
+
+/* Diagonal lines on calendar day hover (horizontal) on hover */
+.calendar-days div:hover span:nth-child(2),
+.calendar-days div:hover span:nth-child(4) {
+    width: 100%;
+}
+
+/* Diagonal lines on calendar day hover (horizontal) positions */
+.calendar-days div span:nth-child(2) {
+    top: 0;
+    left: 0;
+}
+
+.calendar-days div span:nth-child(4) {
+    bottom: 0;
+    right: 0;
+}
+
+/* Delayed transitions for diagonal lines on day hover */
+.calendar-days div:hover span:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.calendar-days div:hover span:nth-child(3) {
+    transition-delay: 0.4s;
+}
+
+.calendar-days div:hover span:nth-child(4) {
+    transition-delay: 0.6s;
+}
+
+/* Styling for the current date in the calendar */
+.calendar-days div.curr-date,
+.calendar-days div.curr-date:hover {
+    background-color: var(--blue);
+    color: var(--white);
+    border-radius: 50%;
+}
+
+/* Hiding the span in the current date div */
+.calendar-days div.curr-date span {
+    display: none;
+}
+
+/* Styling for the month picker button */
+.month-picker {
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* Hover effect for the month picker button */
+.month-picker:hover {
+    background-color: var(--color-hover);
+}
+
+/* Styling for the year picker container */
+.year-picker {
+    display: flex;
+    align-items: center;
+}
+
+/* Styling for year change buttons */
+.year-change {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+/* Hover effect for year change buttons */
+.year-change:hover {
+    background-color: var(--color-hover);
+}
+
+/* Styling for the calendar footer */
+.calendar-footer {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    grid-row: 3;
+    grid-column: 2 / span 4;
+}
+
+/* Styling for toggle components */
+.toggle {
+    display: flex;
+}
+
+/* Styling for text within toggle components */
+.toggle span {
+    margin-right: 10px;
+    color: var(--color-txt);
+}
+
+/* Styling for the dark mode switch */
+.dark-mode-switch {
+    position: relative;
+    width: 48px;
+    height: 25px;
+    border-radius: 14px;
+    background-color: var(--bg-second);
+    cursor: pointer;
+}
+
+/* Identifying element for dark mode switch */
+.dark-mode-switch-ident {
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background-color: var(--bg-main);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: left 0.2s ease-in-out;
+}
+
+/* Dark mode switch identification element in dark mode */
+.dark .dark-mode-switch .dark-mode-switch-ident {
+    top: 2px;
+    left: calc(2px + 50%);
+}
+
+/* Styling for the month picker list */
+.month-list {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--bg-main);
+    padding: 20px;
+    grid-template-columns: repeat(3, auto);
+    gap: 5px;
+    display: grid;
+    transform: scale(1.5);
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Show effect for the month picker list */
+.month-list.show {
+    transform: scale(1);
+    visibility: visible;
+    pointer-events: visible;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Styling for items in the month picker list */
+.month-list > div {
+    display: grid;
+    place-items: center;
+}
+
+/* Styling for month picker list items */
+.month-list > div > div {
+    width: 100%;
+    padding: 5px 20px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    color: var(--color-txt);
+}
+
+/* Hover effect for month picker list items */
+.month-list > div > div:hover {
+    background-color: var(--color-hover);
+}
+
+/* Styling for the frame container */
+.Frame {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--bg-second);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    display: none;
+    max-width: 80%;
+}
+
+/* Expanded state for the frame container */
+.Frame.expanded {
+    display: block;
+}
+
+/* Styling for the back button in the frame container */
+.Frame-back {
+    position: absolute;
+    right: 10px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+}
+
+/* Styling for icons within the frame */
+.Frame-back i {
+    font-size: 22px;
+}
+
+/* Hover effect for icons within the frame */
+.Frame-back i:hover {
+    cursor: pointer;
+    background-color: var(--color-hover-icons);
+    border-radius: 50%;
+}
+
+/* Styling for icons in the frame container */
+.Frame-icons {
+    height: 40px;
+}
+
+/* Styling for individual icons in the frame container */
+.Frame-icons i {
+    font-size: 22px;
+    margin-right: 17px;
+}
+
+/* Hover effect for icons in the frame container */
+.Frame-icons i:hover {
+    cursor: pointer;
+    background-color: var(--color-hover-icons);
+    border-radius: 50%;
+}
+
+/* Styling for the calendar events frame container */
+.calendar-events-frame {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--bg-second);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    display: none;
+    max-width: 80%;
+}
+
+/* Expanded state for the calendar events frame container */
+.calendar-events-frame.expanded {
+    display: block;
+}
+
+/* Styling for the back button in the calendar events frame container */
+.calendar-events-frame-back {
+    position: absolute;
+    right: 10px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+}
+
+/* Styling for icons within the calendar events frame */
+.calendar-events-frame-back i {
+    font-size: 22px;
+}
+
+/* Hover effect for icons within the calendar events frame */
+.calendar-events-frame-back i:hover {
+    cursor: pointer;
+    background-color: var(--color-hover-icons);
+    border-radius: 50%;
+}
+
+/* Styling for icons in the calendar events frame container */
+.calendar-events-frame-icons {
+    height: 40px;
+}
+
+/* Styling for individual icons in the calendar events frame container */
+.calendar-events-frame-icons i {
+    font-size: 22px;
+    margin-right: 17px;
+}
+
+/* Hover effect for icons in the calendar events frame container */
+.calendar-events-frame-icons i:hover {
+    cursor: pointer;
+    background-color: var(--color-hover-icons);
+    border-radius: 50%;
+}
+
+/* Styling for event day indicators in the calendar */
+.event-day {
+    background-color: #3498db;
+    color: white;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+/* Styling for indented content */
+.indented {
+    padding-left: 20px;
+}
+
+/* Keyframe animation for element appearance */
+@keyframes to-top {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
