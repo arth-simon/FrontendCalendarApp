@@ -1,5 +1,7 @@
 Calendar Application:
 
+Arthuro vidal
+
 Authors: Arthur Simon (Matrikelnummer: 9227155), Hannes Lobreyer (Matrikelnummer: 9890457)
 We have selected the following browsers for compatibility tests: Mozilla Firefox, Chrome
 
