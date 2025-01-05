@@ -17,7 +17,7 @@ import { selectLocationOnMap } from './main.js';
 
 // Define constants and variables
 const apiUrl = 'http://dhbw.radicalsimplicity.com/calendar/';
-const user = '9227155'; // Account-Name (Matrikelnummer Arthur Simon)
+const user = '9227155'; // Account-Name
 const mapContainer = document.getElementById('map'); // Container for the map 
 
 
