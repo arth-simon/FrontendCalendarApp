@@ -1,6 +1,6 @@
 Calendar Application:
 
-Authors: Arthur Simon, Hannes Lobreyer
+Authors: Arthur Simon (Matrikelnummer: 9227155), Hannes Lobreyer (Matrikelnummer: 9890457)
 We have selected the following browsers for compatibility tests: Mozilla Firefox, Chrome
 
 Note:
